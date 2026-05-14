@@ -43,11 +43,11 @@
   a { color: inherit; }
   img { max-width:100%; display:block; }
 
-  /* ============== Diagonal Red Corner Wedges ============== */
+  /* ============== Diagonal Red Corner Wedges (frame the page) ============== */
   .corner-wedge {
     position: absolute;
-    width: 56vw;
-    aspect-ratio: 1.4 / 1;
+    width: 240px;
+    height: 200px;
     background: var(--red);
     z-index: 0;
     pointer-events:none;
@@ -60,12 +60,7 @@
     top: 0; right: 0;
     clip-path: polygon(100% 0, 100% 100%, 0 0);
   }
-  .corner-wedge .watermark {
-    position: absolute; top: 30%; left: 50%; transform: translateX(-50%);
-    font-family: var(--serif); font-style: italic; font-weight: 300;
-    font-size: 6vw; color: rgba(242,240,235,0.10); letter-spacing: -0.02em;
-    white-space: nowrap; pointer-events:none;
-  }
+  .corner-wedge .watermark { display: none; }
 
   /* ============== Nav ============== */
   nav {
@@ -78,7 +73,7 @@
   }
   .nav-inner { width:100%; max-width: var(--max); margin: 0 auto; display:flex; justify-content:space-between; align-items:center; gap: 24px; }
   .nav-brand { display:flex; align-items:center; gap: 14px; }
-  .nav-logo-img { height: 34px; width:auto; mix-blend-mode: multiply; }
+  .nav-logo-img { height: 34px; width:auto; }
   .nav-name { font-family: var(--mono); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
   .nav-name span { color: var(--red); }
   .nav-links { display:flex; gap: 28px; align-items:center; }
@@ -98,74 +93,76 @@
   /* ============== Hero ============== */
   .hero-wrap {
     position: relative;
-    padding-top: 110px;
-    padding-bottom: 80px;
+    padding-top: 100px;
+    padding-bottom: 40px;
     overflow: hidden;
   }
-  .hero-card {
+  .hero-row {
     position: relative;
     z-index: 2;
-    background: var(--cream);
-    border: 1px solid var(--line);
-    margin-top: 60px;
     display: grid;
-    grid-template-columns: 1.05fr 1.4fr;
-    gap: 0;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 56px;
+    align-items: center;
+    min-height: 640px;
+    padding-top: 32px;
   }
-  .hero-card-browser {
-    border-bottom: 1px solid var(--line);
-    grid-column: 1 / -1;
-    display:flex; align-items:center; gap: 8px;
-    padding: 10px 14px;
-    background: var(--cream-2);
-  }
-  .hcb-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); }
-  .hcb-dot:nth-child(1) { background: #d6a4a4; }
-  .hcb-dot:nth-child(2) { background: #d6c5a4; }
-  .hcb-dot:nth-child(3) { background: #a4c5b6; }
-  .hcb-url { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--muted-2); margin-left: 14px; }
   .hero-vials-col {
     position: relative;
-    padding: 56px 32px 56px 56px;
-    border-right: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, var(--cream) 0%, var(--cream-2) 100%);
-    min-height: 480px;
+    height: 640px;
+    display: flex; align-items: flex-end; justify-content: center;
   }
   .hero-vials {
-    display: flex; gap: 8px; align-items: flex-end; justify-content:center;
     position: relative;
     width: 100%;
+    height: 100%;
   }
   .vial-card {
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    animation: float 4.5s ease-in-out infinite;
+    position: absolute;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    animation: float 5s ease-in-out infinite;
   }
-  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-  .vial-card .vial-img { width: 140px; filter: drop-shadow(0 18px 30px rgba(15,15,16,0.18)); }
-  .vial-card.featured .vial-img { width: 200px; filter: drop-shadow(0 22px 40px rgba(200,16,46,0.28)); }
-  .vial-card .vial-label { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; color: var(--muted); }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+  .vial-card.v10 { left: 0;   bottom: 28px; animation-delay: -1s; }
+  .vial-card.v20 { left: 28%; bottom: 0;     animation-delay: 0s; z-index: 2; }
+  .vial-card.v40 { right: 0;  bottom: 60px;  animation-delay: -2.4s; }
+  .vial-card .vial-img { width: 220px; filter: drop-shadow(0 30px 40px rgba(15,15,16,0.22)); }
+  .vial-card.v20 .vial-img { width: 340px; filter: drop-shadow(0 36px 56px rgba(200,16,46,0.35)); }
+  .vial-card .vial-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .22em; color: var(--muted);
+    background: var(--cream); padding: 5px 12px; border: 1px solid var(--line-strong);
+  }
+  .vial-card.v20 .vial-label { color: var(--red); border-color: var(--red); }
   .hero-stamp {
     position: absolute;
-    top: 24px; left: 24px;
-    font-family: var(--mono); font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
-    color: var(--red); border: 1px solid var(--red); padding: 6px 10px;
-    background: rgba(242,240,235,0.6);
+    top: 16px; left: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--red); border: 1px solid var(--red); padding: 8px 14px;
+    background: var(--cream);
+    z-index: 3;
   }
   .hero-purity {
     position: absolute;
-    bottom: 24px; right: 24px;
-    width: 88px; height: 88px;
+    top: 60px; right: 30px;
+    width: 110px; height: 110px;
     border-radius: 50%;
     background: var(--red);
     color: var(--cream);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     transform: rotate(-12deg);
+    z-index: 3;
+    box-shadow: 0 18px 30px rgba(200,16,46,0.3);
   }
-  .hero-purity strong { font-family: var(--serif); font-size: 30px; font-weight: 400; line-height: 1; }
-  .hero-purity span { font-family: var(--mono); font-size: 8px; letter-spacing: .15em; margin-top: 4px; }
+  .hero-purity strong { font-family: var(--serif); font-size: 38px; font-weight: 400; line-height: 1; }
+  .hero-purity span { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; margin-top: 4px; }
+  .hero-platform {
+    position: absolute; left: 4%; right: 4%; bottom: -4px;
+    height: 28px;
+    background: radial-gradient(ellipse at center, rgba(15,15,16,0.18), transparent 70%);
+    z-index: 0;
+  }
 
-  .hero-copy-col { padding: 56px 56px 48px; }
+  .hero-copy-col { padding: 0; max-width: 540px; }
   .label {
     font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
     color: var(--red); display: flex; align-items: center; gap: 12px;
@@ -203,6 +200,7 @@
   }
   .btn-outline:hover { border-color: var(--red); color: var(--red); }
 
+  /* Scroll-question pad below hero (echoes ref) */
   .hero-tagline {
     text-align: center; margin-top: 56px;
     color: var(--muted);
@@ -211,7 +209,7 @@
   }
   .hero-tagline em { color: var(--red); font-style: italic; }
 
-  /* ============== Tests / Verification ============== */
+  /* ============== Tests / Verification Section ============== */
   .verify {
     padding: 100px 0 100px;
     position: relative;
@@ -244,7 +242,9 @@
     margin-top: 18px;
     font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--muted-2);
   }
-  .verify-side { align-self: end; }
+  .verify-side {
+    align-self: end;
+  }
   .verify-side-img {
     width: 100%; max-width: 280px;
     margin-left:auto;
@@ -344,7 +344,7 @@
   }
   .mech-cta-row p { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: rgba(242,240,235,0.55); text-transform: uppercase; }
 
-  /* ============== Composition / Architecture ============== */
+  /* ============== Composition / Architecture (light grid like ingredients) ============== */
   .arch { padding: 100px 0; position: relative; }
   .arch-head { text-align: center; max-width: 780px; margin: 0 auto 56px; }
   .arch-head .label { justify-content:center; margin-bottom: 14px; }
@@ -370,10 +370,13 @@
     margin-bottom: 6px;
   }
   .arch-item li::before { content: '—'; position: absolute; left: 0; color: var(--red); }
+  .arch-side-img { position: absolute; right: 24px; bottom: -40px; width: 200px; opacity: .9; pointer-events:none; }
   .arch-cta-wrap { margin-top: 56px; text-align:center; }
 
-  /* ============== Every Order ============== */
-  .every { padding: 60px 0 100px; }
+  /* ============== Every Order (dark feature stripe) ============== */
+  .every {
+    padding: 60px 0 100px;
+  }
   .every-card {
     position: relative;
     background: var(--ink);
@@ -536,7 +539,7 @@
     font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: var(--muted-2); line-height: 1.8;
   }
 
-  /* ============== Effects bars ============== */
+  /* ============== Effects bars (multi-color rows like ref) ============== */
   .effects { padding: 60px 0 100px; }
   .effects-grid { display: grid; grid-template-columns: 0.9fr 1.4fr; gap: 60px; align-items: center; }
   .effects-vial-pane {
@@ -574,7 +577,7 @@
   .effect-row.r5 .stripe { background: #6b3fa0; }
   .effect-row.r5 h4 { color: #6b3fa0; }
 
-  /* ============== Waitlist ============== */
+  /* ============== Guarantee / Waitlist ============== */
   .guarantee { padding: 60px 0 100px; text-align: center; }
   .guarantee .label { justify-content: center; margin-bottom: 14px; }
   .guarantee h2 {
@@ -602,6 +605,7 @@
     background: var(--ink);
     color: var(--cream);
     padding: 70px 0 36px;
+    margin-top: 0;
     position: relative;
   }
   .footer-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad-x); display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 56px; }
@@ -633,11 +637,15 @@
     nav { padding: 12px 16px; }
     .container, .footer-inner, .footer-bottom { padding-left: 24px; padding-right: 24px; }
     .corner-wedge { width: 80vw; }
-    .hero-card { grid-template-columns: 1fr; }
-    .hero-vials-col { padding: 40px 24px; min-height: 320px; }
-    .vial-card .vial-img { width: 90px; }
-    .vial-card.featured .vial-img { width: 130px; }
-    .hero-copy-col { padding: 40px 28px; }
+    .hero-row { grid-template-columns: 1fr; gap: 40px; min-height: 0; padding-top: 16px; }
+    .hero-vials-col { height: 380px; order: -1; }
+    .vial-card .vial-img { width: 130px; }
+    .vial-card.v20 .vial-img { width: 200px; }
+    .vial-card.v10 { left: 4%; bottom: 20px; }
+    .vial-card.v40 { right: 4%; bottom: 40px; }
+    .hero-purity { width: 88px; height: 88px; top: 8px; right: 0; }
+    .hero-purity strong { font-size: 30px; }
+    .hero-copy-col { padding: 0; }
     .verify-grid { grid-template-columns: 1fr; gap: 48px; }
     .qc-table .row { grid-template-columns: 1fr 80px; }
     .qc-table .row .val { display: none; }
@@ -659,7 +667,7 @@
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ============== NAV ============== -->
 <nav>
   <div class="nav-inner">
     <div class="nav-brand">
@@ -676,35 +684,31 @@
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ============== HERO ============== -->
 <section class="hero-wrap">
   <div class="corner-wedge top-left"><span class="watermark">research grade</span></div>
   <div class="corner-wedge top-right"></div>
 
   <div class="container">
-    <div class="hero-card">
-      <div class="hero-card-browser">
-        <span class="hcb-dot"></span><span class="hcb-dot"></span><span class="hcb-dot"></span>
-        <span class="hcb-url">simplex3.alphapeps.com&nbsp;&nbsp;/&nbsp;&nbsp;quad-receptor research peptide</span>
-      </div>
-
+    <div class="hero-row">
       <div class="hero-vials-col">
         <span class="hero-stamp">World First &nbsp;·&nbsp; Quad Receptor</span>
+        <div class="hero-purity"><strong>99%</strong><span>PURITY</span></div>
         <div class="hero-vials">
-          <div class="vial-card" style="animation-delay:0s">
+          <div class="vial-card v10">
             <img src="Simplex3-10mg.png" alt="Simplex3 10mg" class="vial-img">
             <div class="vial-label">10 MG</div>
           </div>
-          <div class="vial-card featured" style="animation-delay:-1.5s">
+          <div class="vial-card v20">
             <img src="Simplex3-20mg.png" alt="Simplex3 20mg" class="vial-img">
-            <div class="vial-label">20 MG</div>
+            <div class="vial-label">20 MG · LOT 006001</div>
           </div>
-          <div class="vial-card" style="animation-delay:-3s">
+          <div class="vial-card v40">
             <img src="Simplex3-40mg.png" alt="Simplex3 40mg" class="vial-img">
             <div class="vial-label">40 MG</div>
           </div>
         </div>
-        <div class="hero-purity"><strong>99%</strong><span>PURITY</span></div>
+        <div class="hero-platform"></div>
       </div>
 
       <div class="hero-copy-col">
@@ -729,7 +733,7 @@
   </div>
 </section>
 
-<!-- TESTS / VERIFICATION -->
+<!-- ============== TESTS / VERIFICATION ============== -->
 <section class="verify">
   <div class="container">
     <div class="verify-grid">
@@ -761,7 +765,7 @@
   </div>
 </section>
 
-<!-- MECHANISM (dark card) -->
+<!-- ============== MECHANISM (dark card) ============== -->
 <section class="mech-section" id="science">
   <div class="container">
     <div class="mech-card">
@@ -827,7 +831,7 @@
   </div>
 </section>
 
-<!-- COMPOSITION -->
+<!-- ============== ARCH / COMPOSITION ============== -->
 <section class="arch" id="composition">
   <div class="container">
     <div class="arch-head">
@@ -891,7 +895,7 @@
   </div>
 </section>
 
-<!-- EVERY ORDER -->
+<!-- ============== EVERY ORDER ============== -->
 <section class="every">
   <div class="container">
     <div class="every-card">
@@ -906,9 +910,9 @@
         <h3 style="margin-top:14px;">Every research vial <em>comes with:</em></h3>
         <ul class="every-list">
           <li><span class="check">✓</span> Batch-specific Certificate of Analysis</li>
-          <li><span class="check">✓</span> LCMS chromatogram &amp; mass confirmation</li>
-          <li><span class="check">✓</span> Endotoxin &amp; residual solvent reports</li>
-          <li><span class="check">✓</span> Reconstitution protocol &amp; handling guide</li>
+          <li><span class="check">✓</span> LCMS chromatogram & mass confirmation</li>
+          <li><span class="check">✓</span> Endotoxin & residual solvent reports</li>
+          <li><span class="check">✓</span> Reconstitution protocol & handling guide</li>
           <li><span class="check">✓</span> Cold-chain compatible packaging</li>
         </ul>
         <a href="#products" class="btn-cream">Get It Now</a>
@@ -917,7 +921,7 @@
   </div>
 </section>
 
-<!-- FAQ -->
+<!-- ============== FAQ ============== -->
 <section class="faq" id="faq">
   <div class="container">
     <div class="faq-head">
@@ -961,7 +965,7 @@
   </div>
 </section>
 
-<!-- PRODUCTS -->
+<!-- ============== PRODUCTS ============== -->
 <section class="products" id="products">
   <div class="container">
     <div class="products-head">
@@ -1029,7 +1033,7 @@
   </div>
 </section>
 
-<!-- EFFECTS (multi-color rows) -->
+<!-- ============== EFFECTS (multi-color rows) ============== -->
 <section class="effects">
   <div class="container">
     <div class="effects-grid">
@@ -1093,7 +1097,7 @@
   </div>
 </section>
 
-<!-- WAITLIST -->
+<!-- ============== GUARANTEE / WAITLIST ============== -->
 <section class="guarantee">
   <div class="container">
     <div class="label">June 1, 2026</div>
@@ -1109,7 +1113,7 @@
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ============== FOOTER ============== -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -1148,7 +1152,7 @@
 function handleWaitlist(e) {
   e.preventDefault();
   const form = e.target;
-  form.outerHTML = '<p style="font-family:Space Mono,monospace;font-size:12px;color:#2f8f55;letter-spacing:.12em;text-transform:uppercase;max-width:520px;margin:36px auto 14px;border:1px solid #2f8f55;padding:18px;">You are on the waitlist — we will be in touch June 1.</p>';
+  form.outerHTML = '<p style="font-family:Space Mono, monospace;font-size:12px;color:#2f8f55;letter-spacing:.12em;text-transform:uppercase;max-width:520px;margin:36px auto 14px;border:1px solid #2f8f55;padding:18px;">You are on the waitlist — we will be in touch June 1.</p>';
 }
 </script>
 </body>
