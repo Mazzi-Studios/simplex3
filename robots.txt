@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.simplex-3.com/sitemap.xml
